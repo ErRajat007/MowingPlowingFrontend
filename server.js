@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
 
     })
 
-
+ 
     socket.on("chat",(data)=>{
        
      const checkRoom =socket.rooms.has(data.roomId)
