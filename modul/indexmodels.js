@@ -49,17 +49,46 @@ const validator= require('validator');
 var indexmodel= new mongoose.Schema({
     name:{
         type:String,
-        required:true
+        required:true,
+        unique:true 
     },
-    email:{
+   
+    // email:{
+    //     unique:true,
+    //     type:String,
+    //     required:true,
+    //     match: /.+\@.+\..+/,
+       
+    // },
+    email: {
+        type: String,
+        validate: {
+          validator: async function(email) {
+            const user = await this.constructor.findOne({ email });
+            if(user) {
+              if(this.id === user.id) {
+                return true;
+              }
+              return false;
+            }
+            return true;
+          },
+          message: props => 'The specified email address is already in use.'
+        },
+        required: [true, 'User email required']
+      },
+    password:{
+        type:String,
+       },
+    titel:{
         type:String,
         required:true,
-        unique:[false,"Email is is already exist"]
+       
     },
     mobile:{
-       type:Number,
+       type:String,
        required:true,
-       unique:[true,"This number is already exist"]
+       unique:true
         
     },
     gender:{
@@ -68,46 +97,44 @@ var indexmodel= new mongoose.Schema({
         required:true,
         enum:["male","female","other"]
     },
-    cat_id:{
-        type:String
+    // cat_id:{
+    //     type:String
        
-    },
-    password:{
-        type:String,
-       },
-    language:{
-        type:String,
-        required:true,
-        enum:["english","arabic","kurdish sarani"]
-    },
-    image:{
-        type:String
-    },
+    // },
+   
+    // language:{
+    //     type:String,
+    //     required:true,
+    //     enum:["english","arabic","kurdish sarani"]
+    // },
+    // image:{
+    //     type:String
+    // },
     role:{
         type:String,
         required:true,
         enum:["user","provider"]
 
     },
-    is_deleted:{
-        type:Number,
-        default:0
-    },
-    status:{
-        type:Number,
+    // is_deleted:{
+    //     type:Number,
+    //     default:0
+    // },
+    // status:{
+    //     type:Number,
         
-    },
+    // },
   
-    code:{
-        type:String
+    // code:{
+    //     type:String
         
-    },
-    date:{
-        type:Date,
-        default:Date.now()
+    // },
+    // date:{
+    //     type:Date,
+    //     default:Date.now()
 
-    }
-})
+    // }
+},{timestamps: true})
 
 // COLLECTION CREATE (table create)with the help of model
 

@@ -1,6 +1,6 @@
 const req = require("express/lib/request");
 var mongoose = require("mongoose")
-var url="mongodb://localhost:27017/life_service"
+var url ="mongodb://localhost:27017/life_service"
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false,useCreateIndex: true})
 
 var db= mongoose.connection

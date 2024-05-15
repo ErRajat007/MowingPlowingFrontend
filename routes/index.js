@@ -30,16 +30,16 @@ router.post('/singup',async(req,res)=>{
       // var user= await data.save();
       
       const hash = bcrypt.hashSync(data.password,10)
-      
+      console.log(data)
       const user = await User.create({
+    
         name:data.name,
         email:data.email,
         mobile:data.mobile,
         gender:data.gender,
-        language:data.language,
+        titel: data.titel,
         password:hash,
         role:data.role,
-        code:data.code
        
       })
       const token = jwt.sign({user_id:user.id},"aabbcc")

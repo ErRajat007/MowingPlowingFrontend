@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
+ 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin')
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +26,8 @@ app.use('/admin', adminRouter);
 app.use('/users', usersRouter);
 app.use('/', indexRouter); 
 
-
+// var port = normalizePort(process.env.PORT || '3002');
+// app.set('port', port);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,6 +43,15 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// app.listen(3002, () => {
+//   console.log(`Server is running on port 3002`);
+// });
+
+//agar IP se chalana ho to  api=>http://192.168.100.115:3000/singup
+app.listen(3002, '192.168.101.30', () => {
+  console.log('Server is running on your-ip-address:3002');
 });
 
 module.exports = app;

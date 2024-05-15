@@ -6,32 +6,34 @@ var mongoose= require('mongoose');
 var categ= new mongoose.Schema({
     name:{
         type:String,
-       
+        unique:[false,"This number is already exist"]
     },
     status:{
         type:Number,
+        default:1,
+
         
     },
   
-    code:{
-        type:String,
+    // code:{
+    //     type:String,
         
-    },
+    // },
     is_deleted:{
         type:Number,
         default:0
     },
-    image:{ 
+    // image:{ 
         
-        type: String 
-     },
+    //     type: String 
+    //  },
     date:{
         type:Date,
         default:Date.now()
 
     }
 
-})
+},{timestamps: true})
 
 // COLLECTION CREATE (table create)with the help of model
 
